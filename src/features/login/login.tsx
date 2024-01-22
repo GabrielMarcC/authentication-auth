@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,14 +12,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
+} from "../../components/ui/form";
+import { loginSchema } from "./schemas";
+import Link from "next/link";
 
 export const Login = () => {
-  const loginSchema = z.object({
-    email: z.string().min(6, { message: "invalid email" }),
-    password: z.string().min(6, { message: "min 6 caracteres" }),
-  });
-
   const login = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -78,6 +75,9 @@ export const Login = () => {
                 </FormItem>
               )}
             />
+          </div>
+          <div className="flex justify-start items-start w-full text-[12px] text-purple-500 ">
+            <Link href={"/register"}> create an account</Link>
           </div>
           <Button
             type="submit"

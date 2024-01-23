@@ -10,5 +10,9 @@ export default function RegisterLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section>{children}</section>;
+  return (
+    <section className="w-screen h-screen bg-purple-500 flex justify-center items-center">
+      {children}
+    </section>
+  );
 }

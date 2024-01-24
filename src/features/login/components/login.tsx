@@ -11,11 +11,12 @@ import {
   FormMessage,
 } from "../../../components/ui/form";
 import { loginSchema } from "../schemas";
+import { useAuthenticatorForm } from "../hooks/useAuthenticatorForm";
+import { checkLogin } from "../utils/checkLogin";
 import Link from "next/link";
-import { useCreateUser } from "../hooks/useCreateUser";
 
 export const Login = () => {
-  const { validator, submitForm } = useCreateUser(loginSchema, "auth");
+  const { validator, submitForm } = useAuthenticatorForm(loginSchema, "auth");
 
   return (
     <div className="w-[400px] h-[300px] bg-white  flex flex-col items-center justify-center rounded-md">
@@ -71,6 +72,7 @@ export const Login = () => {
             type="submit"
             variant="outline"
             className="w-[300px] hover:text-black bg-black text-white"
+            onClick={() => checkLogin()}
           >
             Login
           </Button>

@@ -1,19 +1,19 @@
-import { loginSchema } from "./../schemas/index";
+import { loginSchema } from "../schemas/index";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Request } from "@/utils/request";
 import { registerSchema } from "../schemas";
 
-export const useCreateUser = (
+export const useAuthenticatorForm = (
   schema: typeof registerSchema | typeof loginSchema,
   path: string
 ) => {
   const validator = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "",
       name: "",
+      email: "",
       password: "",
     },
   });
@@ -23,7 +23,6 @@ export const useCreateUser = (
   ) => {
     try {
       const data = await Request(values, path);
-      console.log("created user");
       return data;
     } catch (error: any) {
       console.error(error.message);

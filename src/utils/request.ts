@@ -1,31 +1,36 @@
 "use server";
 
+import { cookies } from "next/headers";
+
 interface RequestData {
   name?: string;
   email: string;
   password: string;
 }
 
-export const Request = async (
-  data: RequestData,
-  path: string
-): Promise<RequestData> => {
+export const Request = async (data: RequestData, path: string) => {
   try {
     const res = await fetch(`${process.env.URL}/${path}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      }),
-    });
+      body: JSON.stringify(data),
+      
+    },);
 
-    const result = await res.json();
-    return result;
-  } catch (error) {
+    if (res.ok) {
+      const data = await res.json();
+      const token = data.acess_Token;
+      cookies().set({
+        name: "token",
+        value: token,
+        httpOnly: true,
+        path: "/",
+      });
+    }
+  } catch (error: any) {
+    console.log(error.message);
     throw new Error("Failed to fetch data");
   }
 };

@@ -10,11 +10,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useCreateUser } from "../hooks/useCreateUser";
+import { useAuthenticatorForm } from "../hooks/useAuthenticatorForm";
 import { registerSchema } from "../schemas";
 
 export const Register = () => {
-  const { validator, submitForm } = useCreateUser(registerSchema, "createuser");
+  const { validator, submitForm } = useAuthenticatorForm(
+    registerSchema,
+    "createuser"
+  );
 
   return (
     <div className="flex  flex-col items-center justify-center bg-white border rounded-lg p-6">
